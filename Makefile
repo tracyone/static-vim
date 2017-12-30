@@ -27,6 +27,7 @@ all: vim-src/src/vim
 
 vim-src:
 	git clone $(REPOSITORY) vim-src
+	cd vim-src && git pull origin master ;cd -
 
 update: $(SRCDEP)
 	@set -e; \
@@ -45,7 +46,6 @@ vim-src/src/auto/config.status: $(SRCDEP)
 	cd vim-src && \
 	CFLAGS="-DFEAT_CONCEAL=1" LDFLAGS="-static" ./configure \
 		--prefix=/dev/null/SET_THE_VIMRUNTIME_ENVIRONMENT_VARIABLE \
-		--disable-channel \
 		--disable-gpm \
 		--disable-gtktest \
 		--disable-gui \
@@ -56,8 +56,12 @@ vim-src/src/auto/config.status: $(SRCDEP)
 		--disable-sysmouse \
 		--disable-xsmp \
 		--enable-multibyte \
+		--enable-channel \
+		--enable-terminal \
+		--enable-cscope \
 		--with-features=normal \
-		--without-x
+		--without-x \
+		--enable-fail-if-missing
 
 vim-src/.config.h-modified: vim-src/src/auto/config.status
 	@echo 'Modifying available features:'
