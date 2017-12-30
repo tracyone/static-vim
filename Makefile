@@ -59,7 +59,7 @@ vim-src/src/auto/config.status: $(SRCDEP)
 		--enable-channel \
 		--enable-terminal \
 		--enable-cscope \
-		--with-features=normal \
+		--with-features=huge \
 		--without-x \
 		--enable-fail-if-missing
 
@@ -118,9 +118,9 @@ $(INSTALLDIR)/vim: vim-src/src/vim
 install: $(INSTALLDIR)/vim
 
 $(DISTTARGET): vim-src/src/vim
-	@$(MAKE) -s INSTALLDIR=$(PWD)/vim DISTMAKE=false install > /dev/null
-	@tar acf $@ vim/
-	@rm -rf vim/
+	@$(MAKE) -s INSTALLDIR=$(PWD)/vim_portable/vim DISTMAKE=false install > /dev/null
+	@tar acf $@ vim_portable/
+	@rm -rf vim_portable/vim/
 	@echo 'Created distributable, compressed archive: $@'
 
 dist: $(DISTTARGET)

@@ -9,6 +9,7 @@
 BINDIR=$(HOME)/bin
 
 install:
+	@mkdir -p ${BINDIR}
 	@if [ -e $(BINDIR)/vim ] && ! [ -h $(BINDIR)/vim ]; then \
 		echo 'Cannot replace $(BINDIR)/vim: not a symlink' >&2; \
 		exit 1; \
@@ -19,6 +20,7 @@ install:
 	@chmod +x vim.sh vim xxd
 	@ln -f -s "$$PWD/vim.sh" $(BINDIR)/vim && echo '- $(BINDIR)/vim'
 	@ln -f -s "$$PWD/xxd" $(BINDIR)/xxd && echo '- $(BINDIR)/xxd'
+	@echo PATH=\"${BINDIR}:$(PATH)\" >> ${HOME}/.bashrc
 
 uninstall:
 	@if [ -h $(BINDIR)/vim ]; then \
